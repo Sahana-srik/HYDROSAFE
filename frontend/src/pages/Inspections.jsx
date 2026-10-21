@@ -143,11 +143,11 @@ const Inspections = () => {
   const getStatusBadge = (status) => {
     switch (status) {
       case 'scheduled':
-        return <span className="badge" style={{ background: 'rgba(245, 158, 11, 0.15)', color: '#fbbf24', border: '1px solid rgba(245, 158, 11, 0.3)' }}>Scheduled</span>;
+        return <span className="badge" style={{ background: '#FFFBEB', color: '#B45309', border: '1px solid #FDE68A' }}>Scheduled</span>;
       case 'completed':
-        return <span className="badge" style={{ background: 'rgba(16, 185, 129, 0.15)', color: '#34d399', border: '1px solid rgba(16, 185, 129, 0.3)' }}>Completed</span>;
+        return <span className="badge" style={{ background: '#ECFDF5', color: '#047857', border: '1px solid #A7F3D0' }}>Completed</span>;
       case 'missed':
-        return <span className="badge" style={{ background: 'rgba(239, 68, 68, 0.15)', color: '#f87171', border: '1px solid rgba(239, 68, 68, 0.3)' }}>Missed</span>;
+        return <span className="badge" style={{ background: '#FEF2F2', color: '#B91C1C', border: '1px solid #FECACA' }}>Missed</span>;
       default:
         return <span className="badge">{status}</span>;
     }
@@ -156,13 +156,13 @@ const Inspections = () => {
   const getResultBadge = (result) => {
     switch (result) {
       case 'pass':
-        return <span className="badge" style={{ background: 'rgba(16, 185, 129, 0.2)', color: '#34d399', border: '1px solid #10b981', fontWeight: 700 }}>PASS</span>;
+        return <span className="badge" style={{ background: '#ECFDF5', color: '#047857', border: '1px solid #A7F3D0', fontWeight: 700 }}>PASS</span>;
       case 'fail':
-        return <span className="badge" style={{ background: 'rgba(239, 68, 68, 0.2)', color: '#f87171', border: '1px solid #ef4444', fontWeight: 800 }}>FAIL</span>;
+        return <span className="badge" style={{ background: '#FEF2F2', color: '#B91C1C', border: '1px solid #FECACA', fontWeight: 800 }}>FAIL</span>;
       case 'pending':
-        return <span className="badge" style={{ background: 'rgba(107, 114, 128, 0.2)', color: '#9ca3af', border: '1px solid rgba(107, 114, 128, 0.3)' }}>Pending</span>;
+        return <span className="badge" style={{ background: '#F1F5F9', color: '#475569', border: '1px solid #CBD5E1' }}>Pending</span>;
       case 'NA':
-        return <span className="badge" style={{ background: 'rgba(107, 114, 128, 0.2)', color: '#9ca3af' }}>N/A</span>;
+        return <span className="badge" style={{ background: '#F1F5F9', color: '#64748B' }}>N/A</span>;
       default:
         return <span className="badge">{result}</span>;
     }
@@ -179,16 +179,17 @@ const Inspections = () => {
             width: '42px',
             height: '42px',
             borderRadius: '12px',
-            background: 'rgba(245, 158, 11, 0.15)',
-            border: '1px solid rgba(245, 158, 11, 0.3)',
+            background: '#FFFBEB',
+            border: '1px solid #FDE68A',
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center'
+            justifyContent: 'center',
+            color: '#B45309'
           }}>
-            <ClipboardCheck size={24} color="#f59e0b" />
+            <ClipboardCheck size={24} />
           </div>
           <div>
-            <h2 style={{ fontSize: '1.4rem', color: '#ffffff' }}>Inspection Management</h2>
+            <h2 style={{ fontSize: '1.4rem', color: 'var(--text-main)', fontWeight: 700 }}>Inspection Management</h2>
             <p style={{ fontSize: '0.825rem', color: 'var(--text-muted)' }}>
               Plant Equipment Safety Checklists & Audit Verification
             </p>
@@ -257,7 +258,7 @@ const Inspections = () => {
 
       {/* Main List */}
       {error && (
-        <div className="glass-panel" style={{ padding: '1.25rem', borderColor: 'rgba(239, 68, 68, 0.4)', color: '#f87171', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div className="glass-panel" style={{ padding: '1.25rem', borderColor: '#FECACA', background: '#FEF2F2', color: '#B91C1C', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <AlertTriangle size={18} />
             <span>{error}</span>
@@ -269,12 +270,12 @@ const Inspections = () => {
       {loading ? (
         <div className="glass-panel" style={{ padding: '3rem', textAlign: 'center', color: 'var(--primary)' }}>
           <RefreshCw size={24} className="spin" style={{ marginBottom: '0.5rem' }} />
-          <div>Fetching inspection records from MongoDB...</div>
+          <div>Fetching inspection records...</div>
         </div>
       ) : filteredInspections.length === 0 ? (
         <div className="glass-panel" style={{ padding: '3rem 2rem', textAlign: 'center' }}>
           <FileSpreadsheet size={36} color="var(--text-dim)" style={{ marginBottom: '0.75rem' }} />
-          <h3 style={{ fontSize: '1.15rem', color: '#ffffff', marginBottom: '0.35rem' }}>
+          <h3 style={{ fontSize: '1.15rem', color: 'var(--text-main)', marginBottom: '0.35rem', fontWeight: 600 }}>
             {inspections.length === 0 ? 'No Inspections Scheduled' : 'No Inspections Match Filter'}
           </h3>
           <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', maxWidth: '400px', margin: '0 auto 1.25rem auto' }}>
@@ -310,11 +311,11 @@ const Inspections = () => {
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.35rem' }}>
                   {getStatusBadge(ins.status)}
                   {getResultBadge(ins.overallResult)}
-                  <span style={{ fontSize: '0.75rem', color: 'var(--text-dim)', background: 'rgba(255, 255, 255, 0.05)', padding: '0.15rem 0.4rem', borderRadius: '4px', textTransform: 'capitalize' }}>
+                  <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', background: '#F1F5F9', border: '1px solid #E2E8F0', padding: '0.15rem 0.4rem', borderRadius: '4px', textTransform: 'capitalize' }}>
                     Type: {ins.type}
                   </span>
                 </div>
-                <h3 style={{ fontSize: '1.1rem', color: '#ffffff', fontWeight: 600, marginBottom: '0.35rem' }}>
+                <h3 style={{ fontSize: '1.1rem', color: 'var(--text-main)', fontWeight: 600, marginBottom: '0.35rem' }}>
                   {ins.equipment}
                 </h3>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', fontSize: '0.85rem', color: 'var(--text-muted)', flexWrap: 'wrap' }}>
@@ -324,7 +325,7 @@ const Inspections = () => {
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
                     <User size={14} color="var(--text-dim)" />
-                    <span>Inspector: <strong>{ins.inspector?.name || 'Unassigned'}</strong> ({ins.inspector?.role || 'inspector'})</span>
+                    <span>Inspector: <strong style={{ color: 'var(--text-main)' }}>{ins.inspector?.name || 'Unassigned'}</strong> ({ins.inspector?.role || 'inspector'})</span>
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
                     <Calendar size={14} color="var(--text-dim)" />
@@ -352,34 +353,12 @@ const Inspections = () => {
 
       {/* SCHEDULE INSPECTION MODAL FORM */}
       {showModal && (
-        <div style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background: 'rgba(0, 0, 0, 0.75)',
-          backdropFilter: 'blur(8px)',
-          zIndex: 100,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: '1.5rem'
-        }}>
-          <div className="glass-panel" style={{
-            width: '100%',
-            maxWidth: '540px',
-            background: 'var(--bg-secondary)',
-            border: '1px solid var(--border-highlight)',
-            borderRadius: 'var(--radius-xl)',
-            padding: '2rem',
-            maxHeight: '90vh',
-            overflowY: 'auto'
-          }}>
+        <div className="modal-overlay">
+          <div className="modal-content">
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <ClipboardCheck size={22} color="#f59e0b" />
-                <h3 style={{ fontSize: '1.25rem', color: '#ffffff' }}>Schedule Safety Inspection</h3>
+                <h3 style={{ fontSize: '1.25rem', color: 'var(--text-main)', fontWeight: 700 }}>Schedule Safety Inspection</h3>
               </div>
               <button onClick={() => setShowModal(false)} className="btn btn-secondary btn-sm" style={{ padding: '0.25rem 0.5rem' }}>
                 <X size={18} />
@@ -387,14 +366,14 @@ const Inspections = () => {
             </div>
 
             {formError && (
-              <div style={{ padding: '0.75rem', borderRadius: 'var(--radius-md)', background: 'rgba(239, 68, 68, 0.15)', border: '1px solid rgba(239, 68, 68, 0.3)', color: '#f87171', fontSize: '0.85rem', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <div style={{ padding: '0.75rem', borderRadius: 'var(--radius-md)', background: '#FEF2F2', border: '1px solid #FECACA', color: '#B91C1C', fontSize: '0.85rem', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <AlertTriangle size={16} />
                 <span>{formError}</span>
               </div>
             )}
 
             {formSuccess && (
-              <div style={{ padding: '0.75rem', borderRadius: 'var(--radius-md)', background: 'rgba(16, 185, 129, 0.15)', border: '1px solid rgba(16, 185, 129, 0.3)', color: '#34d399', fontSize: '0.85rem', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <div style={{ padding: '0.75rem', borderRadius: 'var(--radius-md)', background: '#ECFDF5', border: '1px solid #A7F3D0', color: '#047857', fontSize: '0.85rem', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <CheckCircle size={16} />
                 <span>{formSuccess}</span>
               </div>

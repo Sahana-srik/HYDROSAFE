@@ -200,7 +200,13 @@ async function seedDatabase() {
         inspector: users.inspector._id,
         status: 'scheduled',
         overallResult: 'pending',
-        summaryNotes: 'Bi-weekly routine electrochemical stack integrity check.'
+        summaryNotes: 'Bi-weekly routine electrochemical stack integrity check.',
+        checklist: [
+          { item: 'Inspect hydrogen piping, flange joints and O-ring seal condition for degradation or embrittlement', result: 'pass', note: '' },
+          { item: 'Verify hydrogen leak detection sensors, zero-point baseline and acoustic alarm condition', result: 'pass', note: '' },
+          { item: 'Check differential pressure transmitter readings, cell stack vessel integrity and PRV seals', result: 'pass', note: '' },
+          { item: 'Test safety interlocks, ESD emergency shutdown actuation readiness and isolation valves', result: 'pass', note: '' }
+        ]
       },
       {
         equipment: 'Hydrogen Storage Vessel T-301',

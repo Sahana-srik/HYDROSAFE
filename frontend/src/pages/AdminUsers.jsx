@@ -8,12 +8,12 @@ import api from '../api/axios';
 import { useAuth } from '../context/AuthContext';
 
 const ROLE_CONFIG = {
-  worker: { label: 'Plant Worker', color: '#0ea5e9', bg: 'rgba(14,165,233,0.12)' },
-  safetyOfficer: { label: 'Safety Officer', color: '#f59e0b', bg: 'rgba(245,158,11,0.12)' },
-  inspector: { label: 'Inspector', color: '#8b5cf6', bg: 'rgba(139,92,246,0.12)' },
-  ert: { label: 'ERT Member', color: '#ef4444', bg: 'rgba(239,68,68,0.12)' },
-  complianceAdmin: { label: 'Compliance Admin', color: '#10b981', bg: 'rgba(16,185,129,0.12)' },
-  superAdmin: { label: 'Super Admin', color: '#ec4899', bg: 'rgba(236,72,153,0.12)' }
+  worker: { label: 'Plant Worker', color: '#0369A1', bg: '#E0F2FE' },
+  safetyOfficer: { label: 'Safety Officer', color: '#B45309', bg: '#FEF3C7' },
+  inspector: { label: 'Inspector', color: '#6D28D9', bg: '#EDE9FE' },
+  ert: { label: 'ERT Member', color: '#B91C1C', bg: '#FEE2E2' },
+  complianceAdmin: { label: 'Compliance Admin', color: '#047857', bg: '#ECFDF5' },
+  superAdmin: { label: 'Super Admin', color: '#BE185D', bg: '#FCE7F3' }
 };
 
 // ─── Add / Edit User Modal ──────────────────────────────────────────────────
@@ -56,21 +56,21 @@ const UserFormModal = ({ mode = 'create', userToEdit = null, onClose, onSuccess 
 
   return (
     <div style={{
-      position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.75)',
-      backdropFilter: 'blur(4px)', zIndex: 1000,
+      position: 'fixed', inset: 0, background: 'rgba(15, 23, 42, 0.45)',
+      backdropFilter: 'blur(2px)', zIndex: 1000,
       display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem', overflowY: 'auto'
     }}>
-      <div className="glass-panel" style={{ width: '100%', maxWidth: '520px', padding: '2rem', margin: 'auto' }}>
+      <div className="glass-panel" style={{ width: '100%', maxWidth: '520px', padding: '2rem', margin: 'auto', background: '#FFFFFF', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-modal)' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
             <div style={{
               width: '38px', height: '38px', borderRadius: '10px',
-              background: 'rgba(14,165,233,0.15)', border: '1px solid rgba(14,165,233,0.3)',
+              background: 'var(--primary-light)', border: '1px solid var(--primary-border)',
               display: 'flex', alignItems: 'center', justifyContent: 'center'
             }}>
               <UserPlus size={18} color="var(--primary)" />
             </div>
-            <h3 style={{ color: '#fff', fontSize: '1.1rem' }}>
+            <h3 style={{ color: 'var(--text-main)', fontSize: '1.1rem', fontWeight: 700 }}>
               {mode === 'create' ? 'Create New User' : 'Edit User & Role'}
             </h3>
           </div>
@@ -81,8 +81,8 @@ const UserFormModal = ({ mode = 'create', userToEdit = null, onClose, onSuccess 
 
         {error && (
           <div style={{
-            background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)',
-            color: '#f87171', borderRadius: '8px', padding: '0.75rem 1rem', fontSize: '0.85rem', marginBottom: '1rem'
+            background: '#FEF2F2', border: '1px solid #FECACA',
+            color: '#B91C1C', borderRadius: '8px', padding: '0.75rem 1rem', fontSize: '0.85rem', marginBottom: '1rem'
           }}>{error}</div>
         )}
 
@@ -206,9 +206,9 @@ const AdminUsers = () => {
   if (!isAdmin) {
     return (
       <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-        <div className="glass-panel" style={{ padding: '3rem', textAlign: 'center', borderColor: 'rgba(239,68,68,0.3)' }}>
-          <Lock size={36} color="#ef4444" style={{ marginBottom: '1rem' }} />
-          <h3 style={{ color: '#fff', marginBottom: '0.5rem' }}>Access Restricted</h3>
+        <div className="glass-panel" style={{ padding: '3rem', textAlign: 'center', borderColor: '#FECACA', background: '#FEF2F2' }}>
+          <Lock size={36} color="#DC2626" style={{ marginBottom: '1rem' }} />
+          <h3 style={{ color: 'var(--text-main)', marginBottom: '0.5rem', fontWeight: 600 }}>Access Restricted</h3>
           <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
             User Administration requires Safety Officer, Compliance Admin, or Super Admin privileges.
           </p>
@@ -238,13 +238,13 @@ const AdminUsers = () => {
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
           <div style={{
             width: '44px', height: '44px', borderRadius: '12px',
-            background: 'rgba(14,165,233,0.15)', border: '1px solid rgba(14,165,233,0.3)',
+            background: 'var(--primary-light)', border: '1px solid var(--primary-border)',
             display: 'flex', alignItems: 'center', justifyContent: 'center'
           }}>
             <Users size={22} color="var(--primary)" />
           </div>
           <div>
-            <h2 style={{ fontSize: '1.4rem', color: '#fff' }}>User Administration</h2>
+            <h2 style={{ fontSize: '1.4rem', color: 'var(--text-main)', fontWeight: 700 }}>User Administration</h2>
             <p style={{ fontSize: '0.83rem', color: 'var(--text-muted)' }}>
               Manage plant personnel accounts, RBAC roles & access permissions
             </p>
@@ -264,8 +264,8 @@ const AdminUsers = () => {
       {feedback && (
         <div style={{
           padding: '0.75rem 1rem', borderRadius: '8px',
-          background: 'rgba(16,185,129,0.15)', border: '1px solid rgba(16,185,129,0.3)',
-          color: '#34d399', fontSize: '0.85rem', marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem'
+          background: '#ECFDF5', border: '1px solid #A7F3D0',
+          color: '#047857', fontSize: '0.85rem', marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem'
         }}>
           <CheckCircle2 size={16} />
           <span>{feedback}</span>
@@ -310,15 +310,15 @@ const AdminUsers = () => {
           <p style={{ color: 'var(--text-muted)' }}>Loading user accounts...</p>
         </div>
       ) : error ? (
-        <div className="glass-panel" style={{ padding: '2rem', textAlign: 'center', borderColor: 'rgba(239,68,68,0.3)' }}>
-          <ShieldAlert size={32} color="#ef4444" style={{ marginBottom: '1rem' }} />
-          <p style={{ color: '#f87171', marginBottom: '1rem' }}>{error}</p>
+        <div className="glass-panel" style={{ padding: '2rem', textAlign: 'center', borderColor: '#FECACA', background: '#FEF2F2' }}>
+          <ShieldAlert size={32} color="#EF4444" style={{ marginBottom: '1rem' }} />
+          <p style={{ color: '#B91C1C', marginBottom: '1rem' }}>{error}</p>
           <button className="btn btn-secondary btn-sm" onClick={fetchUsers}>Retry</button>
         </div>
       ) : filteredUsers.length === 0 ? (
         <div className="glass-panel" style={{ padding: '3rem', textAlign: 'center' }}>
           <Users size={36} color="var(--text-dim)" style={{ marginBottom: '1rem' }} />
-          <h3 style={{ color: '#fff', marginBottom: '0.5rem' }}>No Users Found</h3>
+          <h3 style={{ color: 'var(--text-main)', marginBottom: '0.5rem', fontWeight: 600 }}>No Users Found</h3>
           <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem' }}>
             {roleFilter || search ? 'No user accounts match your search filters.' : 'No user accounts registered yet.'}
           </p>
@@ -337,7 +337,7 @@ const AdminUsers = () => {
                 style={{
                   padding: '1rem 1.25rem',
                   opacity: isInactive ? 0.6 : 1,
-                  background: isInactive ? 'rgba(15,23,42,0.4)' : 'var(--glass-bg)'
+                  background: isInactive ? '#F8FAFC' : '#FFFFFF'
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem', flexWrap: 'wrap' }}>
@@ -353,7 +353,7 @@ const AdminUsers = () => {
 
                     <div style={{ flex: 1, minWidth: 0 }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '0.25rem' }}>
-                        <h4 style={{ fontSize: '0.95rem', color: '#fff', fontWeight: 600 }}>{u.name}</h4>
+                        <h4 style={{ fontSize: '0.95rem', color: 'var(--text-main)', fontWeight: 600 }}>{u.name}</h4>
                         <span style={{
                           background: roleCfg.bg, color: roleCfg.color, border: `1px solid ${roleCfg.color}33`,
                           borderRadius: '9999px', padding: '0.15rem 0.55rem', fontSize: '0.68rem', fontWeight: 700
@@ -362,13 +362,13 @@ const AdminUsers = () => {
                         </span>
                         {isSelf && (
                           <span style={{
-                            background: 'rgba(56,189,248,0.12)', color: '#38bdf8', border: '1px solid rgba(56,189,248,0.3)',
+                            background: '#F0F9FF', color: '#0369A1', border: '1px solid #BAE6FD',
                             borderRadius: '9999px', padding: '0.15rem 0.5rem', fontSize: '0.65rem', fontWeight: 700
                           }}>YOU</span>
                         )}
                         {isInactive && (
                           <span style={{
-                            background: 'rgba(239,68,68,0.12)', color: '#f87171', border: '1px solid rgba(239,68,68,0.3)',
+                            background: '#FEF2F2', color: '#B91C1C', border: '1px solid #FECACA',
                             borderRadius: '9999px', padding: '0.15rem 0.5rem', fontSize: '0.65rem', fontWeight: 700
                           }}>INACTIVE</span>
                         )}
@@ -396,8 +396,9 @@ const AdminUsers = () => {
                         onClick={() => handleToggleStatus(u)}
                         style={{
                           fontSize: '0.75rem',
-                          color: isInactive ? '#34d399' : '#f87171',
-                          borderColor: isInactive ? 'rgba(16,185,129,0.3)' : 'rgba(239,68,68,0.3)'
+                          color: isInactive ? '#047857' : '#B91C1C',
+                          borderColor: isInactive ? '#A7F3D0' : '#FECACA',
+                          background: isInactive ? '#ECFDF5' : '#FEF2F2'
                         }}
                       >
                         {isInactive ? <CheckCircle2 size={13} /> : <XCircle size={13} />}

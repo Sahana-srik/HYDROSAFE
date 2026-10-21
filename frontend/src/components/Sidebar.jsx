@@ -59,25 +59,24 @@ const Sidebar = () => {
     }
   ];
 
-
   return (
     <aside style={{
       width: '240px',
-      background: 'rgba(15, 23, 42, 0.95)',
+      background: 'var(--bg-sidebar)',
       borderRight: '1px solid var(--border-color)',
       display: 'flex',
       flexDirection: 'column',
       padding: '1.25rem 0.75rem',
-      gap: '0.5rem',
+      gap: '0.4rem',
       minHeight: 'calc(100vh - 64px)'
     }}>
       <div style={{
-        padding: '0 0.75rem 0.75rem 0.75rem',
+        padding: '0 0.75rem 0.6rem 0.75rem',
         fontSize: '0.7rem',
         fontWeight: 700,
         textTransform: 'uppercase',
         letterSpacing: '0.08em',
-        color: 'var(--text-dim)'
+        color: 'var(--text-muted)'
       }}>
         Navigation Modules
       </div>
@@ -96,27 +95,33 @@ const Sidebar = () => {
               display: 'flex',
               alignItems: 'center',
               gap: '0.75rem',
-              padding: '0.65rem 0.85rem',
+              padding: '0.625rem 0.85rem',
               borderRadius: 'var(--radius-md)',
               fontSize: '0.875rem',
-              fontWeight: 500,
-              color: isActive ? '#ffffff' : 'var(--text-muted)',
-              background: isActive ? 'linear-gradient(90deg, rgba(14, 165, 233, 0.2), rgba(14, 165, 233, 0.05))' : 'transparent',
+              fontWeight: isActive ? 600 : 500,
+              color: isActive ? 'var(--primary)' : 'var(--text-secondary)',
+              background: isActive ? '#FFFFFF' : 'transparent',
+              border: isActive ? '1px solid var(--border-color)' : '1px solid transparent',
               borderLeft: isActive ? '3px solid var(--primary)' : '3px solid transparent',
+              boxShadow: isActive ? 'var(--shadow-sm)' : 'none',
               transition: 'var(--transition)'
             })}
           >
-            <Icon size={18} color="var(--primary)" />
-            <span>{item.name}</span>
+            {({ isActive }) => (
+              <>
+                <Icon size={18} color={isActive ? 'var(--primary)' : 'var(--text-muted)'} />
+                <span>{item.name}</span>
+              </>
+            )}
           </NavLink>
         );
       })}
 
       <div style={{ marginTop: 'auto', paddingTop: '1rem', borderTop: '1px solid var(--border-color)', paddingLeft: '0.75rem', paddingRight: '0.75rem' }}>
-        <div style={{ fontSize: '0.7rem', color: 'var(--text-dim)' }}>
-          HydroSafe v1.0 MERN
+        <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', fontWeight: 600 }}>
+          HydroSafe v1.0
         </div>
-        <div style={{ fontSize: '0.65rem', color: 'var(--primary)', marginTop: '2px' }}>
+        <div style={{ fontSize: '0.68rem', color: 'var(--primary)', marginTop: '2px' }}>
           Single-Plant System Active
         </div>
       </div>

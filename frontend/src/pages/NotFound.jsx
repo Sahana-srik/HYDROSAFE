@@ -19,16 +19,17 @@ const NotFound = () => {
         width: '64px',
         height: '64px',
         borderRadius: '16px',
-        background: 'rgba(14, 165, 233, 0.15)',
-        border: '1px solid rgba(14, 165, 233, 0.4)',
+        background: 'var(--primary-light)',
+        border: '1px solid var(--primary-border)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        marginBottom: '1.25rem'
+        marginBottom: '1.25rem',
+        color: 'var(--primary)'
       }}>
-        <FileQuestion size={32} color="var(--primary)" />
+        <FileQuestion size={32} />
       </div>
-      <h2 style={{ fontSize: '1.65rem', color: '#ffffff', marginBottom: '0.5rem' }}>404 - Page Not Found</h2>
+      <h2 style={{ fontSize: '1.65rem', color: 'var(--text-main)', marginBottom: '0.5rem', fontWeight: 700 }}>404 - Page Not Found</h2>
       <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', maxWidth: '420px', marginBottom: '1.5rem' }}>
         The requested URL path could not be located in the HydroSafe system routes.
       </p>

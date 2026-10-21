@@ -1,4 +1,9 @@
 const mongoose = require('mongoose');
+try {
+  require('./Incident');
+} catch (e) {
+  // Incident model will be registered when required
+}
 
 const checklistItemSchema = new mongoose.Schema({
   item: {
@@ -18,8 +23,20 @@ const checklistItemSchema = new mongoose.Schema({
   photoUrl: {
     type: String,
     default: ''
+  },
+  linkedIncidentId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Incident',
+    default: null
   }
 });
+
+const DEFAULT_HYDROGEN_CHECKLIST = [
+  { item: 'Inspect hydrogen piping, flange joints and O-ring seal condition for degradation or embrittlement', result: 'pass', note: '' },
+  { item: 'Verify hydrogen leak detection sensors, zero-point baseline and acoustic alarm condition', result: 'pass', note: '' },
+  { item: 'Check differential pressure transmitter readings, cell stack vessel integrity and PRV seals', result: 'pass', note: '' },
+  { item: 'Test safety interlocks, ESD emergency shutdown actuation readiness and isolation valves', result: 'pass', note: '' }
+];
 
 const inspectionSchema = new mongoose.Schema(
   {
@@ -58,7 +75,16 @@ const inspectionSchema = new mongoose.Schema(
       enum: ['pending', 'pass', 'fail', 'NA'],
       default: 'pending'
     },
-    checklist: [checklistItemSchema],
+    checklist: {
+      type: [checklistItemSchema],
+      default: () => DEFAULT_HYDROGEN_CHECKLIST.map(i => ({ ...i }))
+    },
+    linkedIncidents: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Incident'
+      }
+    ],
     completedAt: {
       type: Date,
       default: null
@@ -74,3 +100,4 @@ const inspectionSchema = new mongoose.Schema(
 );
 
 module.exports = mongoose.model('Inspection', inspectionSchema);
+module.exports.DEFAULT_HYDROGEN_CHECKLIST = DEFAULT_HYDROGEN_CHECKLIST;

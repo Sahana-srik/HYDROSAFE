@@ -68,6 +68,15 @@ const incidentSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'EmergencyWorkflow',
       default: null
+    },
+    linkedInspectionId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Inspection',
+      default: null
+    },
+    linkedChecklistItem: {
+      type: String,
+      default: ''
     }
   },
   {

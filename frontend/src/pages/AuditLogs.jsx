@@ -7,12 +7,12 @@ import api from '../api/axios';
 import { useAuth } from '../context/AuthContext';
 
 const MODULE_CONFIG = {
-  EMERGENCY: { label: 'Emergency', color: '#ef4444', bg: 'rgba(239,68,68,0.12)', Icon: Siren },
-  COMPLIANCE: { label: 'Compliance', color: '#10b981', bg: 'rgba(16,185,129,0.12)', Icon: FileText },
-  INCIDENT: { label: 'Incident', color: '#f59e0b', bg: 'rgba(245,158,11,0.12)', Icon: ShieldAlert },
-  AUTH: { label: 'Auth', color: '#38bdf8', bg: 'rgba(56,189,248,0.12)', Icon: User },
-  INSPECTION: { label: 'Inspection', color: '#8b5cf6', bg: 'rgba(139,92,246,0.12)', Icon: Shield },
-  USER_MGMT: { label: 'User Mgmt', color: '#ec4899', bg: 'rgba(236,72,153,0.12)', Icon: User }
+  EMERGENCY: { label: 'Emergency', color: '#B91C1C', bg: '#FEF2F2', Icon: Siren },
+  COMPLIANCE: { label: 'Compliance', color: '#047857', bg: '#ECFDF5', Icon: FileText },
+  INCIDENT: { label: 'Incident', color: '#B45309', bg: '#FFFBEB', Icon: ShieldAlert },
+  AUTH: { label: 'Auth', color: '#0369A1', bg: '#F0F9FF', Icon: User },
+  INSPECTION: { label: 'Inspection', color: '#6D28D9', bg: '#F5F3FF', Icon: Shield },
+  USER_MGMT: { label: 'User Mgmt', color: '#BE185D', bg: '#FCE7F3', Icon: User }
 };
 
 const AuditLogRow = ({ log }) => {
@@ -43,7 +43,7 @@ const AuditLogRow = ({ log }) => {
               }}>
                 {modCfg.label.toUpperCase()}
               </span>
-              <span style={{ fontSize: '0.82rem', color: '#fff', fontWeight: 600 }}>
+              <span style={{ fontSize: '0.82rem', color: 'var(--text-main)', fontWeight: 600 }}>
                 {log.action}
               </span>
             </div>
@@ -54,7 +54,7 @@ const AuditLogRow = ({ log }) => {
 
             <div style={{ display: 'flex', gap: '1.25rem', flexWrap: 'wrap', fontSize: '0.78rem', color: 'var(--text-muted)' }}>
               <span>
-                👤 Performed by: <strong style={{ color: '#e2e8f0' }}>{userObj?.name || 'System'}</strong> ({userObj?.role || 'user'})
+                👤 Performed by: <strong style={{ color: 'var(--text-main)' }}>{userObj?.name || 'System'}</strong> ({userObj?.role || 'user'})
               </span>
               <span>
                 📅 {new Date(log.createdAt).toLocaleString()}
@@ -79,17 +79,17 @@ const AuditLogRow = ({ log }) => {
 
       {expanded && hasStates && (
         <div style={{
-          marginTop: '0.85rem', paddingTop: '0.85rem', borderTop: '1px solid rgba(255,255,255,0.08)',
+          marginTop: '0.85rem', paddingTop: '0.85rem', borderTop: '1px solid var(--border-color)',
           display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem'
         }}>
           {log.beforeState && (
             <div>
-              <span style={{ fontSize: '0.75rem', color: '#f87171', fontWeight: 600, display: 'block', marginBottom: '0.3rem' }}>
+              <span style={{ fontSize: '0.75rem', color: '#B91C1C', fontWeight: 600, display: 'block', marginBottom: '0.3rem' }}>
                 BEFORE STATE
               </span>
               <pre style={{
-                background: 'rgba(15,23,42,0.9)', padding: '0.75rem', borderRadius: '6px',
-                fontSize: '0.72rem', color: '#cbd5e1', overflowX: 'auto', maxHeight: '180px'
+                background: '#F8FAFC', border: '1px solid var(--border-color)', padding: '0.75rem', borderRadius: '6px',
+                fontSize: '0.72rem', color: 'var(--text-main)', overflowX: 'auto', maxHeight: '180px'
               }}>
                 {JSON.stringify(log.beforeState, null, 2)}
               </pre>
@@ -97,12 +97,12 @@ const AuditLogRow = ({ log }) => {
           )}
           {log.afterState && (
             <div>
-              <span style={{ fontSize: '0.75rem', color: '#34d399', fontWeight: 600, display: 'block', marginBottom: '0.3rem' }}>
+              <span style={{ fontSize: '0.75rem', color: '#047857', fontWeight: 600, display: 'block', marginBottom: '0.3rem' }}>
                 AFTER STATE
               </span>
               <pre style={{
-                background: 'rgba(15,23,42,0.9)', padding: '0.75rem', borderRadius: '6px',
-                fontSize: '0.72rem', color: '#cbd5e1', overflowX: 'auto', maxHeight: '180px'
+                background: '#F8FAFC', border: '1px solid var(--border-color)', padding: '0.75rem', borderRadius: '6px',
+                fontSize: '0.72rem', color: 'var(--text-main)', overflowX: 'auto', maxHeight: '180px'
               }}>
                 {JSON.stringify(log.afterState, null, 2)}
               </pre>
@@ -152,13 +152,13 @@ const AuditLogs = () => {
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
           <div style={{
             width: '44px', height: '44px', borderRadius: '12px',
-            background: 'rgba(139,92,246,0.15)', border: '1px solid rgba(139,92,246,0.3)',
+            background: '#F5F3FF', border: '1px solid #DDD6FE',
             display: 'flex', alignItems: 'center', justifyContent: 'center'
           }}>
-            <History size={22} color="#a78bfa" />
+            <History size={22} color="#7C3AED" />
           </div>
           <div>
-            <h2 style={{ fontSize: '1.4rem', color: '#fff' }}>System Audit Trail</h2>
+            <h2 style={{ fontSize: '1.4rem', color: 'var(--text-main)', fontWeight: 700 }}>System Audit Trail</h2>
             <p style={{ fontSize: '0.83rem', color: 'var(--text-muted)' }}>
               Immutable security and compliance event records
             </p>
@@ -208,15 +208,15 @@ const AuditLogs = () => {
           <p style={{ color: 'var(--text-muted)' }}>Loading system audit logs...</p>
         </div>
       ) : error ? (
-        <div className="glass-panel" style={{ padding: '2rem', textAlign: 'center', borderColor: 'rgba(239,68,68,0.3)' }}>
-          <ShieldAlert size={32} color="#ef4444" style={{ marginBottom: '1rem' }} />
-          <p style={{ color: '#f87171', marginBottom: '1rem' }}>{error}</p>
+        <div className="glass-panel" style={{ padding: '2rem', textAlign: 'center', borderColor: '#FECACA', background: '#FEF2F2' }}>
+          <ShieldAlert size={32} color="#EF4444" style={{ marginBottom: '1rem' }} />
+          <p style={{ color: '#B91C1C', marginBottom: '1rem' }}>{error}</p>
           <button className="btn btn-secondary btn-sm" onClick={fetchAuditLogs}>Retry</button>
         </div>
       ) : logs.length === 0 ? (
         <div className="glass-panel" style={{ padding: '3rem', textAlign: 'center' }}>
           <History size={36} color="var(--text-dim)" style={{ marginBottom: '1rem' }} />
-          <h3 style={{ color: '#fff', marginBottom: '0.5rem' }}>No Audit Logs Found</h3>
+          <h3 style={{ color: 'var(--text-main)', marginBottom: '0.5rem', fontWeight: 600 }}>No Audit Logs Found</h3>
           <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem' }}>
             No audit log entries match your filter criteria.
           </p>

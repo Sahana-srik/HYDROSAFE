@@ -8,7 +8,7 @@ const AuditLog = require('../models/AuditLog');
 // @access  Private (All authenticated roles: worker, safetyOfficer, etc.)
 const createIncident = async (req, res, next) => {
   try {
-    const { title, type, severity, location, description, evidenceUrls } = req.body;
+    const { title, type, severity, location, description, evidenceUrls, linkedInspectionId, linkedChecklistItemIndex, linkedChecklistItem } = req.body;
 
     if (!title || !type || !severity || !location || !description) {
       return res.status(400).json({
@@ -23,12 +23,32 @@ const createIncident = async (req, res, next) => {
       });
     }
 
+    // Check for duplicate incident if linked to an inspection failure
+    if (linkedInspectionId) {
+      const existing = await Incident.findOne({
+        linkedInspectionId,
+        $or: [
+          { title },
+          { linkedChecklistItem: linkedChecklistItem || title }
+        ]
+      });
+
+      if (existing) {
+        return res.status(409).json({
+          message: 'An incident has already been logged for this inspection failure.',
+          incident: existing
+        });
+      }
+    }
+
     const initialTimeline = [
       {
         status: 'reported',
         changedBy: req.user._id,
         timestamp: new Date(),
-        note: 'Incident report submitted'
+        note: linkedInspectionId
+          ? 'Incident logged directly from equipment safety inspection failure'
+          : 'Incident report submitted'
       }
     ];
 
@@ -41,15 +61,35 @@ const createIncident = async (req, res, next) => {
       reportedBy: req.user._id,
       status: 'reported',
       evidenceUrls: Array.isArray(evidenceUrls) ? evidenceUrls : [],
-      timeline: initialTimeline
+      timeline: initialTimeline,
+      linkedInspectionId: linkedInspectionId || null,
+      linkedChecklistItem: linkedChecklistItem || ''
     });
+
+    // If linked to an inspection, link the incident bidirectionally
+    if (linkedInspectionId) {
+      const Inspection = require('../models/Inspection');
+      const inspection = await Inspection.findById(linkedInspectionId);
+      if (inspection) {
+        if (!inspection.linkedIncidents) inspection.linkedIncidents = [];
+        if (!inspection.linkedIncidents.includes(incident._id)) {
+          inspection.linkedIncidents.push(incident._id);
+        }
+        if (linkedChecklistItemIndex !== undefined && inspection.checklist && inspection.checklist[linkedChecklistItemIndex]) {
+          inspection.checklist[linkedChecklistItemIndex].linkedIncidentId = incident._id;
+        }
+        await inspection.save();
+      }
+    }
 
     // Audit Log
     await AuditLog.create({
       action: 'INCIDENT_CREATED',
       performedBy: req.user._id,
       module: 'INCIDENT',
-      details: `Incident reported: ${incident.title} [Severity: ${incident.severity}]`,
+      details: linkedInspectionId
+        ? `Incident reported from inspection failure [${linkedInspectionId}]: ${incident.title} [Severity: ${incident.severity}]`
+        : `Incident reported: ${incident.title} [Severity: ${incident.severity}]`,
       ipAddress: req.ip || ''
     }).catch(err => console.warn('AuditLog note:', err.message));
 

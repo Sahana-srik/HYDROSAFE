@@ -19,16 +19,17 @@ const Unauthorized = () => {
         width: '64px',
         height: '64px',
         borderRadius: '16px',
-        background: 'rgba(239, 68, 68, 0.15)',
-        border: '1px solid rgba(239, 68, 68, 0.4)',
+        background: '#FEF2F2',
+        border: '1px solid #FECACA',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        marginBottom: '1.25rem'
+        marginBottom: '1.25rem',
+        color: '#DC2626'
       }}>
-        <ShieldAlert size={32} color="#f87171" />
+        <ShieldAlert size={32} />
       </div>
-      <h2 style={{ fontSize: '1.65rem', color: '#ffffff', marginBottom: '0.5rem' }}>403 - Access Denied</h2>
+      <h2 style={{ fontSize: '1.65rem', color: 'var(--text-main)', marginBottom: '0.5rem', fontWeight: 700 }}>403 - Access Denied</h2>
       <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', maxWidth: '420px', marginBottom: '1.5rem' }}>
         Your user role does not have authorization to view or perform operations in this safety module.
       </p>

@@ -15,18 +15,18 @@ const TEMPLATE_LABELS = {
 };
 
 const STEP_STATUS = {
-  pending: { label: 'Pending', color: '#6b7280', bg: 'rgba(107,114,128,0.12)', Icon: Clock },
-  in_progress: { label: 'In Progress', color: '#f59e0b', bg: 'rgba(245,158,11,0.12)', Icon: Loader2 },
-  completed: { label: 'Completed', color: '#10b981', bg: 'rgba(16,185,129,0.12)', Icon: CheckCircle2 },
-  overridden: { label: 'Overridden', color: '#8b5cf6', bg: 'rgba(139,92,246,0.12)', Icon: ShieldAlert },
-  skipped: { label: 'Skipped', color: '#6b7280', bg: 'rgba(107,114,128,0.08)', Icon: XCircle }
+  pending: { label: 'Pending', color: '#475569', bg: '#F1F5F9', Icon: Clock },
+  in_progress: { label: 'In Progress', color: '#B45309', bg: '#FFFBEB', Icon: Loader2 },
+  completed: { label: 'Completed', color: '#047857', bg: '#ECFDF5', Icon: CheckCircle2 },
+  overridden: { label: 'Overridden', color: '#6D28D9', bg: '#F5F3FF', Icon: ShieldAlert },
+  skipped: { label: 'Skipped', color: '#64748B', bg: '#F8FAFC', Icon: XCircle }
 };
 
 const WORKFLOW_STATUS_CONFIG = {
-  active: { label: 'Active', color: '#ef4444', bg: 'rgba(239,68,68,0.12)' },
-  completed: { label: 'Completed', color: '#10b981', bg: 'rgba(16,185,129,0.12)' },
-  overridden: { label: 'Overridden', color: '#8b5cf6', bg: 'rgba(139,92,246,0.12)' },
-  cancelled: { label: 'Cancelled', color: '#6b7280', bg: 'rgba(107,114,128,0.12)' }
+  active: { label: 'Active', color: '#B91C1C', bg: '#FEF2F2' },
+  completed: { label: 'Completed', color: '#047857', bg: '#ECFDF5' },
+  overridden: { label: 'Overridden', color: '#6D28D9', bg: '#F5F3FF' },
+  cancelled: { label: 'Cancelled', color: '#475569', bg: '#F1F5F9' }
 };
 
 // Override Modal
@@ -52,33 +52,33 @@ const OverrideModal = ({ step, onClose, onConfirm }) => {
 
   return (
     <div style={{
-      position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.75)',
-      backdropFilter: 'blur(4px)', zIndex: 1000,
+      position: 'fixed', inset: 0, background: 'rgba(15, 23, 42, 0.45)',
+      backdropFilter: 'blur(2px)', zIndex: 1000,
       display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem'
     }}>
-      <div className="glass-panel" style={{ width: '100%', maxWidth: '480px', padding: '2rem' }}>
+      <div className="glass-panel" style={{ width: '100%', maxWidth: '480px', padding: '2rem', background: '#FFFFFF', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-modal)' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
-          <ShieldAlert size={22} color="#8b5cf6" />
-          <h3 style={{ color: '#fff', fontSize: '1.05rem' }}>Override Step {step.order}</h3>
+          <ShieldAlert size={22} color="#7c3aed" />
+          <h3 style={{ color: 'var(--text-main)', fontSize: '1.05rem', fontWeight: 700 }}>Override Step {step.order}</h3>
         </div>
 
         <div style={{
-          background: 'rgba(245,158,11,0.08)', border: '1px solid rgba(245,158,11,0.25)',
+          background: '#FFFBEB', border: '1px solid #FDE68A',
           borderRadius: '8px', padding: '0.75rem 1rem', marginBottom: '1rem'
         }}>
-          <p style={{ fontSize: '0.82rem', color: '#fbbf24' }}>
+          <p style={{ fontSize: '0.82rem', color: '#B45309' }}>
             ⚠️ <strong>Warning:</strong> This override will be permanently recorded in the audit log with your identity and reason.
           </p>
         </div>
 
         <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)', marginBottom: '1.25rem' }}>
-          Step: <strong style={{ color: '#fff' }}>{step.name}</strong>
+          Step: <strong style={{ color: 'var(--text-main)' }}>{step.name}</strong>
         </p>
 
         {error && (
           <div style={{
-            background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)',
-            color: '#f87171', borderRadius: '8px', padding: '0.75rem', fontSize: '0.83rem', marginBottom: '1rem'
+            background: '#FEF2F2', border: '1px solid #FECACA',
+            color: '#B91C1C', borderRadius: '8px', padding: '0.75rem', fontSize: '0.83rem', marginBottom: '1rem'
           }}>{error}</div>
         )}
 
@@ -140,23 +140,23 @@ const CompleteModal = ({ step, onClose, onConfirm }) => {
 
   return (
     <div style={{
-      position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.75)',
-      backdropFilter: 'blur(4px)', zIndex: 1000,
+      position: 'fixed', inset: 0, background: 'rgba(15, 23, 42, 0.45)',
+      backdropFilter: 'blur(2px)', zIndex: 1000,
       display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem'
     }}>
-      <div className="glass-panel" style={{ width: '100%', maxWidth: '460px', padding: '2rem' }}>
+      <div className="glass-panel" style={{ width: '100%', maxWidth: '460px', padding: '2rem', background: '#FFFFFF', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-modal)' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
-          <CheckCircle2 size={22} color="#10b981" />
-          <h3 style={{ color: '#fff', fontSize: '1.05rem' }}>Complete Step {step.order}</h3>
+          <CheckCircle2 size={22} color="#047857" />
+          <h3 style={{ color: 'var(--text-main)', fontSize: '1.05rem', fontWeight: 700 }}>Complete Step {step.order}</h3>
         </div>
         <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)', marginBottom: '1.25rem' }}>
-          Step: <strong style={{ color: '#fff' }}>{step.name}</strong>
+          Step: <strong style={{ color: 'var(--text-main)' }}>{step.name}</strong>
         </p>
 
         {error && (
           <div style={{
-            background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)',
-            color: '#f87171', borderRadius: '8px', padding: '0.75rem', fontSize: '0.83rem', marginBottom: '1rem'
+            background: '#FEF2F2', border: '1px solid #FECACA',
+            color: '#B91C1C', borderRadius: '8px', padding: '0.75rem', fontSize: '0.83rem', marginBottom: '1rem'
           }}>{error}</div>
         )}
 
@@ -224,8 +224,8 @@ const StepRow = ({ step, index, isCurrentStep, canComplete, canOverride, onCompl
           </span>
           {isOverdue && (
             <span style={{
-              background: 'rgba(239,68,68,0.12)', color: '#f87171',
-              border: '1px solid rgba(239,68,68,0.3)',
+              background: '#FEF2F2', color: '#B91C1C',
+              border: '1px solid #FECACA',
               borderRadius: '9999px', padding: '0.15rem 0.5rem', fontSize: '0.68rem', fontWeight: 700
             }}>
               OVERDUE
@@ -233,7 +233,7 @@ const StepRow = ({ step, index, isCurrentStep, canComplete, canOverride, onCompl
           )}
         </div>
 
-        <p style={{ color: '#e2e8f0', fontSize: '0.9rem', fontWeight: 500, marginBottom: '0.5rem' }}>
+        <p style={{ color: 'var(--text-main)', fontSize: '0.9rem', fontWeight: 500, marginBottom: '0.5rem' }}>
           {step.name}
         </p>
 
@@ -246,13 +246,13 @@ const StepRow = ({ step, index, isCurrentStep, canComplete, canOverride, onCompl
             </span>
           )}
           {step.dueAt && (
-            <span style={{ fontSize: '0.78rem', color: isOverdue ? '#f87171' : 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+            <span style={{ fontSize: '0.78rem', color: isOverdue ? '#B91C1C' : 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
               <CalendarClock size={12} />
               Due: {new Date(step.dueAt).toLocaleString()}
             </span>
           )}
           {step.completedAt && (
-            <span style={{ fontSize: '0.78rem', color: '#10b981', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+            <span style={{ fontSize: '0.78rem', color: '#047857', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
               <CheckCircle2 size={12} />
               Completed: {new Date(step.completedAt).toLocaleString()}
               {step.completedBy && ` by ${step.completedBy.name}`}
@@ -262,10 +262,10 @@ const StepRow = ({ step, index, isCurrentStep, canComplete, canOverride, onCompl
 
         {step.note && (
           <p style={{
-            marginTop: '0.4rem', fontSize: '0.78rem', color: 'var(--text-dim)',
+            marginTop: '0.4rem', fontSize: '0.78rem', color: 'var(--text-secondary)',
             fontStyle: 'italic', padding: '0.35rem 0.6rem',
-            background: 'rgba(255,255,255,0.03)', borderRadius: '6px',
-            borderLeft: '3px solid rgba(255,255,255,0.1)'
+            background: '#F8FAFC', borderRadius: '6px',
+            borderLeft: '3px solid var(--border-color)'
           }}>
             {step.note}
           </p>
@@ -290,8 +290,8 @@ const StepRow = ({ step, index, isCurrentStep, canComplete, canOverride, onCompl
               <button
                 className="btn btn-sm"
                 style={{
-                  background: 'rgba(139,92,246,0.12)', border: '1px solid rgba(139,92,246,0.3)',
-                  color: '#a78bfa', fontSize: '0.75rem', padding: '0.375rem 0.75rem'
+                  background: '#F5F3FF', border: '1px solid #DDD6FE',
+                  color: '#6D28D9', fontSize: '0.75rem', padding: '0.375rem 0.75rem'
                 }}
                 onClick={() => onOverride(step)}
               >
@@ -388,9 +388,9 @@ const EmergencyDetail = () => {
         <Link to="/emergency" className="btn btn-secondary btn-sm" style={{ marginBottom: '1rem', display: 'inline-flex' }}>
           <ArrowLeft size={15} /> Back
         </Link>
-        <div className="glass-panel" style={{ padding: '2rem', textAlign: 'center', borderColor: 'rgba(239,68,68,0.3)' }}>
-          <AlertTriangle size={32} color="#ef4444" style={{ marginBottom: '1rem' }} />
-          <p style={{ color: '#f87171' }}>{error}</p>
+        <div className="glass-panel" style={{ padding: '2rem', textAlign: 'center', borderColor: '#FECACA', background: '#FEF2F2' }}>
+          <AlertTriangle size={32} color="#EF4444" style={{ marginBottom: '1rem' }} />
+          <p style={{ color: '#B91C1C' }}>{error}</p>
         </div>
       </div>
     );
@@ -430,10 +430,10 @@ const EmergencyDetail = () => {
         <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem', flexWrap: 'wrap' }}>
           <div style={{
             width: '48px', height: '48px', flexShrink: 0, borderRadius: '12px',
-            background: 'rgba(239,68,68,0.15)', border: '1px solid rgba(239,68,68,0.3)',
+            background: '#FEF2F2', border: '1px solid #FECACA',
             display: 'flex', alignItems: 'center', justifyContent: 'center'
           }}>
-            <Siren size={24} color="#ef4444" />
+            <Siren size={24} color="#EF4444" />
           </div>
           <div style={{ flex: 1, minWidth: 0 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.4rem', flexWrap: 'wrap' }}>
@@ -445,19 +445,19 @@ const EmergencyDetail = () => {
                 {wfStatusCfg.label.toUpperCase()}
               </span>
               <span style={{
-                background: 'rgba(14,165,233,0.1)', color: '#38bdf8',
-                border: '1px solid rgba(14,165,233,0.2)',
+                background: 'var(--primary-light)', color: 'var(--primary)',
+                border: '1px solid var(--primary-border)',
                 borderRadius: '9999px', padding: '0.2rem 0.7rem', fontSize: '0.72rem', fontWeight: 600
               }}>
                 {TEMPLATE_LABELS[workflow.templateType] || workflow.templateType}
               </span>
             </div>
-            <h2 style={{ fontSize: '1.25rem', color: '#fff', marginBottom: '0.5rem' }}>
+            <h2 style={{ fontSize: '1.25rem', color: 'var(--text-main)', fontWeight: 700, marginBottom: '0.5rem' }}>
               {workflow.title}
             </h2>
             <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap' }}>
               <span style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>
-                🚨 Triggered by: <strong style={{ color: '#fff' }}>{workflow.triggeredBy?.name}</strong> ({workflow.triggeredBy?.role})
+                🚨 Triggered by: <strong style={{ color: 'var(--text-main)' }}>{workflow.triggeredBy?.name}</strong> ({workflow.triggeredBy?.role})
               </span>
               <span style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>
                 📅 Created: {new Date(workflow.createdAt).toLocaleString()}
@@ -470,15 +470,15 @@ const EmergencyDetail = () => {
         {workflow.incidentId && (
           <div style={{
             marginTop: '1rem', padding: '0.75rem 1rem',
-            background: 'rgba(255,255,255,0.04)', borderRadius: '8px',
-            border: '1px solid rgba(255,255,255,0.06)',
+            background: '#F8FAFC', borderRadius: '8px',
+            border: '1px solid var(--border-color)',
             display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.5rem'
           }}>
             <div>
-              <span style={{ fontSize: '0.75rem', color: 'var(--text-dim)', display: 'block', marginBottom: '0.2rem' }}>
+              <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', display: 'block', marginBottom: '0.2rem' }}>
                 LINKED INCIDENT
               </span>
-              <span style={{ fontSize: '0.9rem', color: '#e2e8f0', fontWeight: 500 }}>
+              <span style={{ fontSize: '0.9rem', color: 'var(--text-main)', fontWeight: 600 }}>
                 {workflow.incidentId.title}
               </span>
               {workflow.incidentId.location && (
@@ -504,7 +504,7 @@ const EmergencyDetail = () => {
             </span>
             <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{progress}%</span>
           </div>
-          <div style={{ height: '6px', background: 'rgba(255,255,255,0.08)', borderRadius: '3px' }}>
+          <div style={{ height: '6px', background: '#E2E8F0', borderRadius: '3px' }}>
             <div style={{
               height: '100%', borderRadius: '3px', transition: 'width 0.6s ease',
               width: `${progress}%`,
@@ -518,7 +518,7 @@ const EmergencyDetail = () => {
 
       {/* Steps timeline */}
       <div className="glass-panel" style={{ padding: '1.5rem', marginBottom: '1.25rem' }}>
-        <h3 style={{ fontSize: '1rem', color: '#fff', marginBottom: '1.25rem', fontWeight: 600 }}>
+        <h3 style={{ fontSize: '1rem', color: 'var(--text-main)', marginBottom: '1.25rem', fontWeight: 600 }}>
           Response Steps
         </h3>
 
@@ -539,7 +539,7 @@ const EmergencyDetail = () => {
                 {idx < workflow.steps.length - 1 && (
                   <div style={{
                     width: '2px', height: '16px', marginLeft: '27px',
-                    background: 'rgba(255,255,255,0.08)'
+                    background: 'var(--border-color)'
                   }} />
                 )}
               </div>
@@ -551,7 +551,7 @@ const EmergencyDetail = () => {
       {/* Override Log */}
       {workflow.overrideLog?.length > 0 && (
         <div className="glass-panel" style={{ padding: '1.5rem', marginBottom: '1.25rem' }}>
-          <h3 style={{ fontSize: '1rem', color: '#fff', marginBottom: '1rem', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          <h3 style={{ fontSize: '1rem', color: 'var(--text-main)', marginBottom: '1rem', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <ShieldAlert size={18} color="#8b5cf6" />
             Override Audit Log
           </h3>
@@ -559,11 +559,11 @@ const EmergencyDetail = () => {
             {workflow.overrideLog.map((entry, idx) => (
               <div key={idx} style={{
                 padding: '0.75rem 1rem',
-                background: 'rgba(139,92,246,0.06)', borderRadius: '8px',
-                border: '1px solid rgba(139,92,246,0.2)'
+                background: '#F5F3FF', borderRadius: '8px',
+                border: '1px solid #DDD6FE'
               }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.25rem', marginBottom: '0.35rem' }}>
-                  <span style={{ fontSize: '0.82rem', color: '#a78bfa', fontWeight: 600 }}>
+                  <span style={{ fontSize: '0.82rem', color: '#6D28D9', fontWeight: 600 }}>
                     Step {entry.stepOrder}: {entry.stepName}
                   </span>
                   <span style={{ fontSize: '0.75rem', color: 'var(--text-dim)' }}>
@@ -571,7 +571,7 @@ const EmergencyDetail = () => {
                   </span>
                 </div>
                 <p style={{ fontSize: '0.83rem', color: 'var(--text-muted)', marginBottom: '0.3rem' }}>
-                  <strong style={{ color: '#e2e8f0' }}>Overridden by:</strong>{' '}
+                  <strong style={{ color: 'var(--text-main)' }}>Overridden by:</strong>{' '}
                   {entry.overriddenBy?.name} ({entry.overriddenBy?.role})
                 </p>
                 <p style={{ fontSize: '0.83rem', color: 'var(--text-muted)', fontStyle: 'italic' }}>

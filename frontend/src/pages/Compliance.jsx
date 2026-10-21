@@ -86,22 +86,22 @@ const DocFormModal = ({ mode = 'create', existingDoc = null, onClose, onSuccess 
 
   return (
     <div style={{
-      position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.7)',
-      backdropFilter: 'blur(4px)', zIndex: 1000,
+      position: 'fixed', inset: 0, background: 'rgba(15, 23, 42, 0.45)',
+      backdropFilter: 'blur(2px)', zIndex: 1000,
       display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem',
       overflowY: 'auto'
     }}>
-      <div className="glass-panel" style={{ width: '100%', maxWidth: '560px', padding: '2rem', margin: 'auto' }}>
+      <div className="glass-panel" style={{ width: '100%', maxWidth: '560px', padding: '2rem', margin: 'auto', background: '#FFFFFF', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-modal)' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
             <div style={{
               width: '38px', height: '38px', borderRadius: '10px',
-              background: 'rgba(16,185,129,0.15)', border: '1px solid rgba(16,185,129,0.3)',
+              background: '#ECFDF5', border: '1px solid #A7F3D0',
               display: 'flex', alignItems: 'center', justifyContent: 'center'
             }}>
-              {isNewVersion ? <GitBranch size={18} color="#10b981" /> : <Upload size={18} color="#10b981" />}
+              {isNewVersion ? <GitBranch size={18} color="#047857" /> : <Upload size={18} color="#047857" />}
             </div>
-            <h3 style={{ color: '#fff', fontSize: '1.05rem' }}>{title}</h3>
+            <h3 style={{ color: 'var(--text-main)', fontSize: '1.05rem', fontWeight: 700 }}>{title}</h3>
           </div>
           <button onClick={onClose} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-muted)' }}>
             <X size={20} />
@@ -110,10 +110,10 @@ const DocFormModal = ({ mode = 'create', existingDoc = null, onClose, onSuccess 
 
         {isNewVersion && existingDoc && (
           <div style={{
-            background: 'rgba(16,185,129,0.06)', border: '1px solid rgba(16,185,129,0.2)',
+            background: '#ECFDF5', border: '1px solid #A7F3D0',
             borderRadius: '8px', padding: '0.75rem 1rem', marginBottom: '1rem'
           }}>
-            <p style={{ fontSize: '0.82rem', color: '#34d399' }}>
+            <p style={{ fontSize: '0.82rem', color: '#047857' }}>
               Creating new version of: <strong>{existingDoc.title}</strong> (current: v{existingDoc.version})
             </p>
           </div>
@@ -121,8 +121,8 @@ const DocFormModal = ({ mode = 'create', existingDoc = null, onClose, onSuccess 
 
         {error && (
           <div style={{
-            background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)',
-            color: '#f87171', borderRadius: '8px', padding: '0.75rem 1rem',
+            background: '#FEF2F2', border: '1px solid #FECACA',
+            color: '#B91C1C', borderRadius: '8px', padding: '0.75rem 1rem',
             fontSize: '0.85rem', marginBottom: '1rem'
           }}>{error}</div>
         )}
@@ -183,7 +183,7 @@ const DocFormModal = ({ mode = 'create', existingDoc = null, onClose, onSuccess 
                 onChange={(e) => setFile(e.target.files[0])}
                 style={{
                   width: '100%', padding: '0.6rem 0.875rem',
-                  background: 'rgba(15,23,42,0.8)', border: '1px solid var(--border-color)',
+                  background: '#FFFFFF', border: '1px solid var(--border-color)',
                   borderRadius: 'var(--radius-md)', color: 'var(--text-main)',
                   fontSize: '0.875rem', cursor: 'pointer'
                 }}
@@ -216,15 +216,17 @@ const DocFormModal = ({ mode = 'create', existingDoc = null, onClose, onSuccess 
 const ExpiryTab = ({ label, count, active, onClick, color }) => (
   <button onClick={onClick} style={{
     padding: '0.5rem 1rem', borderRadius: '8px', fontSize: '0.83rem', fontWeight: 600,
-    cursor: 'pointer', border: 'none', display: 'flex', alignItems: 'center', gap: '0.4rem',
-    background: active ? `rgba(${color},0.15)` : 'rgba(255,255,255,0.04)',
-    color: active ? `rgb(${color})` : 'var(--text-muted)',
+    cursor: 'pointer', border: active ? '1px solid var(--border-color)' : '1px solid transparent',
+    display: 'flex', alignItems: 'center', gap: '0.4rem',
+    background: active ? '#FFFFFF' : 'transparent',
+    boxShadow: active ? 'var(--shadow-sm)' : 'none',
+    color: active ? 'var(--text-main)' : 'var(--text-muted)',
     transition: 'all 0.2s ease'
   }}>
     {label}
     <span style={{
-      background: active ? `rgba(${color},0.2)` : 'rgba(255,255,255,0.08)',
-      color: active ? `rgb(${color})` : 'var(--text-dim)',
+      background: active ? `rgba(${color}, 0.15)` : '#E2E8F0',
+      color: active ? `rgb(${color})` : 'var(--text-muted)',
       borderRadius: '9999px', padding: '0.1rem 0.45rem', fontSize: '0.72rem', fontWeight: 700
     }}>{count}</span>
   </button>
@@ -269,7 +271,7 @@ const DocCard = ({ doc, canEdit, onEdit, onDelete, onNewVersion }) => {
                   </span>
                 )}
               </div>
-              <h3 style={{ fontSize: '0.95rem', color: '#fff', fontWeight: 600, marginBottom: '0.25rem' }}>
+              <h3 style={{ fontSize: '0.95rem', color: 'var(--text-main)', fontWeight: 600, marginBottom: '0.25rem' }}>
                 {doc.title}
               </h3>
               <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginBottom: '0.5rem' }}>
@@ -303,10 +305,10 @@ const DocCard = ({ doc, canEdit, onEdit, onDelete, onNewVersion }) => {
 
           {doc.notes && (
             <p style={{
-              fontSize: '0.78rem', color: 'var(--text-dim)', fontStyle: 'italic',
+              fontSize: '0.78rem', color: 'var(--text-secondary)', fontStyle: 'italic',
               marginBottom: '0.75rem', padding: '0.35rem 0.6rem',
-              background: 'rgba(255,255,255,0.03)', borderRadius: '6px',
-              borderLeft: '3px solid rgba(255,255,255,0.08)'
+              background: '#F8FAFC', borderRadius: '6px',
+              borderLeft: '3px solid var(--border-color)'
             }}>
               {doc.notes}
             </p>
@@ -332,14 +334,14 @@ const DocCard = ({ doc, canEdit, onEdit, onDelete, onNewVersion }) => {
                 </button>
                 <button
                   className="btn btn-secondary btn-sm"
-                  style={{ color: '#a78bfa', borderColor: 'rgba(139,92,246,0.3)' }}
+                  style={{ color: '#6D28D9', borderColor: '#DDD6FE', background: '#F5F3FF' }}
                   onClick={() => onNewVersion(doc)}
                 >
                   <GitBranch size={12} /> New Version
                 </button>
                 <button
                   className="btn btn-secondary btn-sm"
-                  style={{ color: '#f87171', borderColor: 'rgba(239,68,68,0.3)' }}
+                  style={{ color: '#B91C1C', borderColor: '#FECACA', background: '#FEF2F2' }}
                   onClick={() => onDelete(doc)}
                 >
                   <Trash2 size={13} />
@@ -443,13 +445,13 @@ const Compliance = () => {
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
           <div style={{
             width: '44px', height: '44px', borderRadius: '12px',
-            background: 'rgba(16,185,129,0.15)', border: '1px solid rgba(16,185,129,0.3)',
+            background: '#ECFDF5', border: '1px solid #A7F3D0',
             display: 'flex', alignItems: 'center', justifyContent: 'center'
           }}>
-            <FileCheck2 size={22} color="#10b981" />
+            <FileCheck2 size={22} color="#047857" />
           </div>
           <div>
-            <h2 style={{ fontSize: '1.4rem', color: '#fff' }}>Compliance Vault</h2>
+            <h2 style={{ fontSize: '1.4rem', color: 'var(--text-main)', fontWeight: 700 }}>Compliance Vault</h2>
             <p style={{ fontSize: '0.83rem', color: 'var(--text-muted)' }}>
               ISO 22734 / NFPA 2 Certificates, Licenses, SDS & Permits
             </p>
@@ -553,21 +555,21 @@ const Compliance = () => {
           <p style={{ color: 'var(--text-muted)' }}>Loading compliance documents...</p>
         </div>
       ) : error ? (
-        <div className="glass-panel" style={{ padding: '2rem', textAlign: 'center', borderColor: 'rgba(239,68,68,0.3)' }}>
-          <AlertTriangle size={32} color="#ef4444" style={{ marginBottom: '1rem' }} />
-          <p style={{ color: '#f87171', marginBottom: '1rem' }}>{error}</p>
+        <div className="glass-panel" style={{ padding: '2rem', textAlign: 'center', borderColor: '#FECACA', background: '#FEF2F2' }}>
+          <AlertTriangle size={32} color="#EF4444" style={{ marginBottom: '1rem' }} />
+          <p style={{ color: '#B91C1C', marginBottom: '1rem' }}>{error}</p>
           <button className="btn btn-secondary btn-sm" onClick={fetchDocs}>Retry</button>
         </div>
       ) : displayedDocs.length === 0 ? (
         <div className="glass-panel" style={{ padding: '3rem', textAlign: 'center' }}>
           <div style={{
             width: '60px', height: '60px', borderRadius: '16px',
-            background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.2)',
+            background: '#ECFDF5', border: '1px solid #A7F3D0',
             display: 'inline-flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem'
           }}>
-            <FileCheck2 size={28} color="#10b981" />
+            <FileCheck2 size={28} color="#047857" />
           </div>
-          <h3 style={{ color: '#fff', marginBottom: '0.5rem' }}>No Documents Found</h3>
+          <h3 style={{ color: 'var(--text-main)', marginBottom: '0.5rem', fontWeight: 600 }}>No Documents Found</h3>
           <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem' }}>
             {categoryFilter || search
               ? 'No documents match your current filters.'

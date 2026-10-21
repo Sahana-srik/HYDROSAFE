@@ -44,43 +44,49 @@ const Register = () => {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      background: 'radial-gradient(circle at 50% 30%, #1e293b 0%, #0b0f19 80%)',
+      backgroundColor: 'var(--bg-primary)',
+      backgroundImage: 'radial-gradient(circle at 15% 15%, rgba(204, 251, 241, 0.45) 0%, transparent 40%), radial-gradient(circle at 85% 85%, rgba(224, 242, 254, 0.6) 0%, transparent 45%)',
       padding: '1.5rem'
     }}>
       <div className="glass-panel" style={{
         width: '100%',
         maxWidth: '500px',
-        padding: '2.25rem',
-        borderRadius: 'var(--radius-xl)'
+        padding: '2.5rem 2.25rem',
+        borderRadius: 'var(--radius-xl)',
+        background: '#FFFFFF',
+        border: '1px solid var(--border-color)',
+        boxShadow: 'var(--shadow-card)'
       }}>
-        <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
+        <div style={{ textAlign: 'center', marginBottom: '1.75rem' }}>
           <div style={{
-            width: '44px',
-            height: '44px',
-            borderRadius: '10px',
-            background: 'linear-gradient(135deg, #06b6d4, #0ea5e9)',
+            width: '48px',
+            height: '48px',
+            borderRadius: '12px',
+            background: 'var(--primary-light)',
+            border: '1px solid var(--primary-border)',
             display: 'inline-flex',
             alignItems: 'center',
             justifyContent: 'center',
-            marginBottom: '0.5rem'
+            marginBottom: '0.75rem',
+            color: 'var(--primary)'
           }}>
-            <ShieldCheck size={24} color="#ffffff" />
+            <ShieldCheck size={26} />
           </div>
-          <h2 style={{ fontSize: '1.35rem', color: '#ffffff' }}>Register Plant Personnel</h2>
-          <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+          <h2 style={{ fontSize: '1.4rem', color: 'var(--text-main)', fontWeight: 700 }}>Register Plant Personnel</h2>
+          <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginTop: '2px' }}>
             Hydrogen Safety & Compliance Access Enrollment
           </p>
         </div>
 
         {localError && (
           <div style={{
-            padding: '0.75rem',
+            padding: '0.75rem 1rem',
             borderRadius: 'var(--radius-md)',
-            background: 'rgba(239, 68, 68, 0.15)',
-            border: '1px solid rgba(239, 68, 68, 0.3)',
-            color: '#f87171',
+            background: '#FEF2F2',
+            border: '1px solid #FECACA',
+            color: '#B91C1C',
             fontSize: '0.85rem',
-            marginBottom: '1rem',
+            marginBottom: '1.25rem',
             display: 'flex',
             alignItems: 'center',
             gap: '0.5rem'
@@ -186,7 +192,7 @@ const Register = () => {
           </button>
         </form>
 
-        <div style={{ marginTop: '1.25rem', textAlign: 'center', fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+        <div style={{ marginTop: '1.5rem', textAlign: 'center', fontSize: '0.85rem', color: 'var(--text-muted)' }}>
           Already registered?{' '}
           <Link to="/login" style={{ color: 'var(--primary)', fontWeight: 600 }}>
             Sign In Here

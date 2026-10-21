@@ -18,10 +18,10 @@ const TEMPLATE_LABELS = {
 };
 
 const STATUS_CONFIG = {
-  active: { label: 'Active', color: '#ef4444', bg: 'rgba(239,68,68,0.12)', icon: AlertTriangle },
-  completed: { label: 'Completed', color: '#10b981', bg: 'rgba(16,185,129,0.12)', icon: CheckCircle2 },
-  overridden: { label: 'Overridden', color: '#f59e0b', bg: 'rgba(245,158,11,0.12)', icon: ShieldAlert },
-  cancelled: { label: 'Cancelled', color: '#6b7280', bg: 'rgba(107,114,128,0.12)', icon: XCircle }
+  active: { label: 'Active', color: '#B91C1C', bg: '#FEF2F2', icon: AlertTriangle },
+  completed: { label: 'Completed', color: '#047857', bg: '#ECFDF5', icon: CheckCircle2 },
+  overridden: { label: 'Overridden', color: '#B45309', bg: '#FFFBEB', icon: ShieldAlert },
+  cancelled: { label: 'Cancelled', color: '#475569', bg: '#F1F5F9', icon: XCircle }
 };
 
 const CreateWorkflowModal = ({ incidents, onClose, onCreated }) => {
@@ -47,26 +47,26 @@ const CreateWorkflowModal = ({ incidents, onClose, onCreated }) => {
 
   return (
     <div style={{
-      position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.7)',
-      backdropFilter: 'blur(4px)', zIndex: 1000,
+      position: 'fixed', inset: 0, background: 'rgba(15, 23, 42, 0.45)',
+      backdropFilter: 'blur(2px)', zIndex: 1000,
       display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem'
     }}>
-      <div className="glass-panel" style={{ width: '100%', maxWidth: '520px', padding: '2rem' }}>
+      <div className="glass-panel" style={{ width: '100%', maxWidth: '520px', padding: '2rem', background: '#FFFFFF', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-modal)' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem' }}>
           <div style={{
             width: '40px', height: '40px', borderRadius: '10px',
-            background: 'rgba(239,68,68,0.15)', border: '1px solid rgba(239,68,68,0.3)',
+            background: '#FEF2F2', border: '1px solid #FECACA',
             display: 'flex', alignItems: 'center', justifyContent: 'center'
           }}>
-            <Siren size={20} color="#ef4444" />
+            <Siren size={20} color="#EF4444" />
           </div>
-          <h3 style={{ fontSize: '1.1rem', color: '#fff' }}>Create Emergency Workflow</h3>
+          <h3 style={{ fontSize: '1.1rem', color: 'var(--text-main)', fontWeight: 700 }}>Create Emergency Workflow</h3>
         </div>
 
         {error && (
           <div style={{
-            background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)',
-            color: '#f87171', borderRadius: '8px', padding: '0.75rem 1rem',
+            background: '#FEF2F2', border: '1px solid #FECACA',
+            color: '#B91C1C', borderRadius: '8px', padding: '0.75rem 1rem',
             fontSize: '0.85rem', marginBottom: '1rem'
           }}>{error}</div>
         )}
@@ -150,8 +150,8 @@ const WorkflowCard = ({ workflow }) => {
                 {cfg.label.toUpperCase()}
               </span>
               <span style={{
-                background: 'rgba(14,165,233,0.1)', color: '#38bdf8',
-                border: '1px solid rgba(14,165,233,0.2)',
+                background: 'var(--primary-light)', color: 'var(--primary)',
+                border: '1px solid var(--primary-border)',
                 borderRadius: '9999px', padding: '0.2rem 0.6rem',
                 fontSize: '0.72rem', fontWeight: 600
               }}>
@@ -159,7 +159,7 @@ const WorkflowCard = ({ workflow }) => {
               </span>
             </div>
 
-            <h3 style={{ fontSize: '1rem', color: '#fff', marginBottom: '0.35rem', fontWeight: 600 }}>
+            <h3 style={{ fontSize: '1rem', color: 'var(--text-main)', marginBottom: '0.35rem', fontWeight: 600 }}>
               {workflow.title || `${TEMPLATE_LABELS[workflow.templateType]} Response`}
             </h3>
 
@@ -177,7 +177,7 @@ const WorkflowCard = ({ workflow }) => {
                 </span>
                 <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{progress}%</span>
               </div>
-              <div style={{ height: '4px', background: 'rgba(255,255,255,0.1)', borderRadius: '2px' }}>
+              <div style={{ height: '4px', background: '#E2E8F0', borderRadius: '2px' }}>
                 <div style={{
                   height: '100%', borderRadius: '2px',
                   width: `${progress}%`,
@@ -252,13 +252,13 @@ const Emergency = () => {
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
           <div style={{
             width: '44px', height: '44px', borderRadius: '12px',
-            background: 'rgba(239,68,68,0.15)', border: '1px solid rgba(239,68,68,0.3)',
+            background: '#FEF2F2', border: '1px solid #FECACA',
             display: 'flex', alignItems: 'center', justifyContent: 'center'
           }}>
-            <Siren size={22} color="#ef4444" />
+            <Siren size={22} color="#EF4444" />
           </div>
           <div>
-            <h2 style={{ fontSize: '1.4rem', color: '#fff' }}>Emergency Response</h2>
+            <h2 style={{ fontSize: '1.4rem', color: 'var(--text-main)', fontWeight: 700 }}>Emergency Response</h2>
             <p style={{ fontSize: '0.83rem', color: 'var(--text-muted)' }}>
               Step-based emergency workflow engine
             </p>
@@ -321,21 +321,21 @@ const Emergency = () => {
           <p style={{ color: 'var(--text-muted)' }}>Loading emergency workflows...</p>
         </div>
       ) : error ? (
-        <div className="glass-panel" style={{ padding: '2rem', textAlign: 'center', borderColor: 'rgba(239,68,68,0.3)' }}>
-          <AlertTriangle size={32} color="#ef4444" style={{ marginBottom: '1rem' }} />
-          <p style={{ color: '#f87171', marginBottom: '1rem' }}>{error}</p>
+        <div className="glass-panel" style={{ padding: '2rem', textAlign: 'center', borderColor: '#FECACA', background: '#FEF2F2' }}>
+          <AlertTriangle size={32} color="#EF4444" style={{ marginBottom: '1rem' }} />
+          <p style={{ color: '#B91C1C', marginBottom: '1rem' }}>{error}</p>
           <button className="btn btn-secondary btn-sm" onClick={fetchData}>Retry</button>
         </div>
       ) : workflows.length === 0 ? (
         <div className="glass-panel" style={{ padding: '3rem', textAlign: 'center' }}>
           <div style={{
             width: '60px', height: '60px', borderRadius: '16px',
-            background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.2)',
+            background: '#FEF2F2', border: '1px solid #FECACA',
             display: 'inline-flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem'
           }}>
-            <Siren size={28} color="#ef4444" />
+            <Siren size={28} color="#EF4444" />
           </div>
-          <h3 style={{ color: '#fff', marginBottom: '0.5rem' }}>No Emergency Workflows</h3>
+          <h3 style={{ color: 'var(--text-main)', marginBottom: '0.5rem', fontWeight: 600 }}>No Emergency Workflows</h3>
           <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem' }}>
             {statusFilter || typeFilter
               ? 'No workflows match the current filters.'

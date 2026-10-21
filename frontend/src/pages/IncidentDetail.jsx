@@ -104,13 +104,13 @@ const IncidentDetail = () => {
   const getSeverityBadge = (severity) => {
     switch (severity) {
       case 'low':
-        return <span className="badge" style={{ background: 'rgba(16, 185, 129, 0.15)', color: '#34d399', border: '1px solid rgba(16, 185, 129, 0.3)' }}>Low</span>;
+        return <span className="badge" style={{ background: '#ECFDF5', color: '#047857', border: '1px solid #A7F3D0' }}>Low</span>;
       case 'medium':
-        return <span className="badge" style={{ background: 'rgba(245, 158, 11, 0.15)', color: '#fbbf24', border: '1px solid rgba(245, 158, 11, 0.3)' }}>Medium</span>;
+        return <span className="badge" style={{ background: '#FFFBEB', color: '#B45309', border: '1px solid #FDE68A' }}>Medium</span>;
       case 'high':
-        return <span className="badge" style={{ background: 'rgba(239, 68, 68, 0.15)', color: '#f87171', border: '1px solid rgba(239, 68, 68, 0.3)' }}>High</span>;
+        return <span className="badge" style={{ background: '#FEF2F2', color: '#B91C1C', border: '1px solid #FECACA' }}>High</span>;
       case 'critical':
-        return <span className="badge" style={{ background: 'rgba(220, 38, 38, 0.3)', color: '#fca5a5', border: '1px solid #ef4444', fontWeight: 800 }}>Critical</span>;
+        return <span className="badge" style={{ background: '#FEE2E2', color: '#991B1B', border: '1px solid #F87171', fontWeight: 800 }}>Critical</span>;
       default:
         return <span className="badge">{severity}</span>;
     }
@@ -119,15 +119,15 @@ const IncidentDetail = () => {
   const getStatusBadge = (status) => {
     switch (status) {
       case 'reported':
-        return <span className="badge" style={{ background: 'rgba(6, 182, 212, 0.15)', color: '#22d3ee', border: '1px solid rgba(6, 182, 212, 0.3)' }}>Reported</span>;
+        return <span className="badge" style={{ background: '#F0FDFA', color: '#0F766E', border: '1px solid #99F6E4' }}>Reported</span>;
       case 'acknowledged':
-        return <span className="badge" style={{ background: 'rgba(245, 158, 11, 0.15)', color: '#fbbf24', border: '1px solid rgba(245, 158, 11, 0.3)' }}>Acknowledged</span>;
+        return <span className="badge" style={{ background: '#FFFBEB', color: '#B45309', border: '1px solid #FDE68A' }}>Acknowledged</span>;
       case 'underInvestigation':
-        return <span className="badge" style={{ background: 'rgba(139, 92, 246, 0.15)', color: '#a78bfa', border: '1px solid rgba(139, 92, 246, 0.3)' }}>Under Investigation</span>;
+        return <span className="badge" style={{ background: '#F5F3FF', color: '#6D28D9', border: '1px solid #DDD6FE' }}>Under Investigation</span>;
       case 'resolved':
-        return <span className="badge" style={{ background: 'rgba(16, 185, 129, 0.15)', color: '#34d399', border: '1px solid rgba(16, 185, 129, 0.3)' }}>Resolved</span>;
+        return <span className="badge" style={{ background: '#ECFDF5', color: '#047857', border: '1px solid #A7F3D0' }}>Resolved</span>;
       case 'closed':
-        return <span className="badge" style={{ background: 'rgba(107, 114, 128, 0.2)', color: '#9ca3af', border: '1px solid rgba(107, 114, 128, 0.3)' }}>Closed</span>;
+        return <span className="badge" style={{ background: '#F1F5F9', color: '#475569', border: '1px solid #CBD5E1' }}>Closed</span>;
       default:
         return <span className="badge">{status}</span>;
     }
@@ -144,9 +144,9 @@ const IncidentDetail = () => {
   if (error || !incident) {
     return (
       <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
-        <div className="glass-panel" style={{ padding: '2rem', textAlign: 'center', borderColor: 'rgba(239, 68, 68, 0.4)' }}>
-          <AlertTriangle size={36} color="#f87171" style={{ marginBottom: '0.75rem' }} />
-          <h3 style={{ fontSize: '1.2rem', color: '#ffffff', marginBottom: '0.5rem' }}>{error || 'Incident Not Found'}</h3>
+        <div className="glass-panel" style={{ padding: '2rem', textAlign: 'center', borderColor: '#FECACA', background: '#FEF2F2' }}>
+          <AlertTriangle size={36} color="#B91C1C" style={{ marginBottom: '0.75rem' }} />
+          <h3 style={{ fontSize: '1.2rem', color: '#B91C1C', marginBottom: '0.5rem', fontWeight: 600 }}>{error || 'Incident Not Found'}</h3>
           <button onClick={() => navigate('/incidents')} className="btn btn-secondary" style={{ marginTop: '1rem' }}>
             <ArrowLeft size={16} />
             <span>Back to Incidents List</span>
@@ -170,7 +170,7 @@ const IncidentDetail = () => {
             <Link
               to={`/emergency/${incident.linkedWorkflowId._id || incident.linkedWorkflowId}`}
               className="btn btn-secondary btn-sm"
-              style={{ color: '#ef4444', borderColor: 'rgba(239, 68, 68, 0.4)', background: 'rgba(239, 68, 68, 0.1)' }}
+              style={{ color: '#B91C1C', borderColor: '#FECACA', background: '#FEF2F2' }}
             >
               <Siren size={16} />
               <span>View Emergency Workflow</span>
@@ -194,7 +194,7 @@ const IncidentDetail = () => {
 
 
       {escalateFeedback && (
-        <div style={{ padding: '0.75rem 1rem', borderRadius: 'var(--radius-md)', background: 'rgba(239, 68, 68, 0.2)', border: '1px solid #ef4444', color: '#fca5a5', marginBottom: '1.25rem', fontSize: '0.875rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+        <div style={{ padding: '0.75rem 1rem', borderRadius: 'var(--radius-md)', background: '#FEF2F2', border: '1px solid #FECACA', color: '#B91C1C', marginBottom: '1.25rem', fontSize: '0.875rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
           <Siren size={16} />
           <span>{escalateFeedback}</span>
         </div>
@@ -209,12 +209,12 @@ const IncidentDetail = () => {
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.75rem' }}>
               {getSeverityBadge(incident.severity)}
               {getStatusBadge(incident.status)}
-              <span style={{ fontSize: '0.75rem', color: 'var(--text-dim)', background: 'rgba(255, 255, 255, 0.05)', padding: '0.15rem 0.5rem', borderRadius: '4px' }}>
+              <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', background: '#F1F5F9', border: '1px solid #E2E8F0', padding: '0.15rem 0.5rem', borderRadius: '4px' }}>
                 Type: {incident.type}
               </span>
             </div>
 
-            <h1 style={{ fontSize: '1.5rem', color: '#ffffff', marginBottom: '0.5rem' }}>{incident.title}</h1>
+            <h1 style={{ fontSize: '1.5rem', color: 'var(--text-main)', fontWeight: 700, marginBottom: '0.5rem' }}>{incident.title}</h1>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '1.25rem', flexWrap: 'wrap' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
@@ -263,7 +263,7 @@ const IncidentDetail = () => {
 
           {/* Visual Timeline Card */}
           <div className="glass-panel" style={{ padding: '1.75rem' }}>
-            <h3 style={{ fontSize: '1.15rem', color: '#ffffff', marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <h3 style={{ fontSize: '1.15rem', color: 'var(--text-main)', fontWeight: 600, marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <Activity size={18} color="var(--primary)" />
               <span>Status Audit Timeline</span>
             </h3>
@@ -279,9 +279,9 @@ const IncidentDetail = () => {
                     width: '14px',
                     height: '14px',
                     borderRadius: '50%',
-                    background: idx === incident.timeline.length - 1 ? 'var(--primary)' : 'var(--bg-secondary)',
-                    border: `2px solid ${idx === incident.timeline.length - 1 ? '#38bdf8' : 'var(--text-muted)'}`,
-                    boxShadow: idx === incident.timeline.length - 1 ? '0 0 10px var(--primary)' : 'none'
+                    background: idx === incident.timeline.length - 1 ? 'var(--primary)' : '#FFFFFF',
+                    border: `2px solid ${idx === incident.timeline.length - 1 ? 'var(--primary)' : '#CBD5E1'}`,
+                    boxShadow: idx === incident.timeline.length - 1 ? '0 0 8px rgba(13, 148, 136, 0.4)' : 'none'
                   }}></div>
 
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.25rem' }}>
@@ -291,7 +291,7 @@ const IncidentDetail = () => {
                     </span>
                   </div>
 
-                  <div style={{ fontSize: '0.85rem', color: '#ffffff', fontWeight: 500, marginTop: '0.25rem' }}>
+                  <div style={{ fontSize: '0.85rem', color: 'var(--text-main)', fontWeight: 600, marginTop: '0.25rem' }}>
                     {item.note || `Status set to ${item.status}`}
                   </div>
 
@@ -317,7 +317,8 @@ const IncidentDetail = () => {
                 width: '40px',
                 height: '40px',
                 borderRadius: '50%',
-                background: 'rgba(14, 165, 233, 0.2)',
+                background: 'var(--primary-light)',
+                border: '1px solid var(--primary-border)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -327,7 +328,7 @@ const IncidentDetail = () => {
                 {incident.reportedBy?.name ? incident.reportedBy.name.charAt(0).toUpperCase() : 'U'}
               </div>
               <div>
-                <div style={{ fontSize: '0.95rem', fontWeight: 600, color: '#ffffff' }}>
+                <div style={{ fontSize: '0.95rem', fontWeight: 600, color: 'var(--text-main)' }}>
                   {incident.reportedBy?.name || 'Unknown Reporter'}
                 </div>
                 <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
@@ -337,22 +338,22 @@ const IncidentDetail = () => {
             </div>
 
             <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', display: 'grid', gap: '0.35rem', paddingTop: '0.75rem', borderTop: '1px solid var(--border-color)' }}>
-              <div>Role: <strong style={{ color: '#ffffff' }}>{incident.reportedBy?.role}</strong></div>
-              <div>Employee ID: <strong style={{ color: '#ffffff' }}>{incident.reportedBy?.employeeId}</strong></div>
-              <div>Department: <strong style={{ color: '#ffffff' }}>{incident.reportedBy?.department}</strong></div>
+              <div>Role: <strong style={{ color: 'var(--text-main)' }}>{incident.reportedBy?.role}</strong></div>
+              <div>Employee ID: <strong style={{ color: 'var(--text-main)' }}>{incident.reportedBy?.employeeId}</strong></div>
+              <div>Department: <strong style={{ color: 'var(--text-main)' }}>{incident.reportedBy?.department}</strong></div>
             </div>
           </div>
 
           {/* Status Update Control Panel for Safety Officers / Admins */}
           {isSafetyOfficerOrAdmin ? (
             <div className="glass-panel" style={{ padding: '1.5rem' }}>
-              <h4 style={{ fontSize: '0.95rem', color: '#ffffff', fontWeight: 600, marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+              <h4 style={{ fontSize: '0.95rem', color: 'var(--text-main)', fontWeight: 600, marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                 <Shield size={16} color="var(--primary)" />
                 <span>Safety Officer Controls</span>
               </h4>
 
               {statusFeedback && (
-                <div style={{ padding: '0.5rem 0.75rem', borderRadius: 'var(--radius-md)', background: 'rgba(16, 185, 129, 0.15)', border: '1px solid rgba(16, 185, 129, 0.3)', color: '#34d399', fontSize: '0.8rem', marginBottom: '1rem' }}>
+                <div style={{ padding: '0.5rem 0.75rem', borderRadius: 'var(--radius-md)', background: '#ECFDF5', border: '1px solid #A7F3D0', color: '#047857', fontSize: '0.8rem', marginBottom: '1rem' }}>
                   {statusFeedback}
                 </div>
               )}

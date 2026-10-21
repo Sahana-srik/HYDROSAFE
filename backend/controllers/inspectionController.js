@@ -3,10 +3,10 @@ const Inspection = require('../models/Inspection');
 const AuditLog = require('../models/AuditLog');
 
 const DEFAULT_HYDROGEN_CHECKLIST = [
-  { item: 'Inspect H2 leak detector sensor calibration & zero-point baseline', result: 'pass', note: '' },
-  { item: 'Verify Emergency Shutdown Valve (ESV) pneumatic pressure actuation', result: 'pass', note: '' },
-  { item: 'Check Pressure Relief Valve (PRV) mechanical seal & vent piping', result: 'pass', note: '' },
-  { item: 'Monitor electrolysis stack thermal temperature & water flow rate', result: 'pass', note: '' }
+  { item: 'Inspect hydrogen piping, flange joints and O-ring seal condition for degradation or embrittlement', result: 'pass', note: '' },
+  { item: 'Verify hydrogen leak detection sensors, zero-point baseline and acoustic alarm condition', result: 'pass', note: '' },
+  { item: 'Check differential pressure transmitter readings, cell stack vessel integrity and PRV seals', result: 'pass', note: '' },
+  { item: 'Test safety interlocks, ESD emergency shutdown actuation readiness and isolation valves', result: 'pass', note: '' }
 ];
 
 // @desc    Schedule a new safety inspection
@@ -92,11 +92,18 @@ const getInspections = async (req, res, next) => {
 // @access  Private
 const getInspectionById = async (req, res, next) => {
   try {
-    const inspection = await Inspection.findById(req.params.id)
-      .populate('inspector', 'name email role employeeId department phone');
+    let inspection = await Inspection.findById(req.params.id)
+      .populate('inspector', 'name email role employeeId department phone')
+      .populate('linkedIncidents', 'title status severity createdAt location');
 
     if (!inspection) {
       return res.status(404).json({ message: 'Inspection record not found' });
+    }
+
+    // Auto-heal empty checklist for scheduled inspections to guarantee valid hydrogen plant safety checks
+    if ((!inspection.checklist || inspection.checklist.length === 0) && inspection.status === 'scheduled') {
+      inspection.checklist = DEFAULT_HYDROGEN_CHECKLIST.map(i => ({ ...i }));
+      await inspection.save();
     }
 
     res.json(inspection);
@@ -167,6 +174,12 @@ const submitInspection = async (req, res, next) => {
       return res.status(404).json({ message: 'Inspection record not found' });
     }
 
+    if (inspection.status === 'completed') {
+      return res.status(400).json({
+        message: 'This inspection has already been submitted and marked Completed (read-only).'
+      });
+    }
+
     // Role check: assigned inspector or safety officer/admin
     const isAssigned = inspection.inspector.toString() === req.user._id.toString();
     const isAdminRole = ['safetyOfficer', 'complianceAdmin', 'superAdmin'].includes(req.user.role);
@@ -232,7 +245,8 @@ const submitInspection = async (req, res, next) => {
     }).catch(err => console.warn('AuditLog note:', err.message));
 
     const completedInspection = await Inspection.findById(inspection._id)
-      .populate('inspector', 'name email role employeeId department');
+      .populate('inspector', 'name email role employeeId department')
+      .populate('linkedIncidents', 'title status severity createdAt location');
 
     res.json({
       message: `Inspection successfully submitted and marked COMPLETED (${overallResult.toUpperCase()})`,
